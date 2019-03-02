@@ -1,0 +1,38 @@
+<!-- FINISH THIS!!! -->
+
+<!-- ALSO FINISH edit_profile.js AND delete_profile.js IN db -->
+
+<div ng-controller="editProfileCtrl" ng-init="init()" class="container" id="controller-container">
+    <div class="panel panel-default">
+        <div class="panel-heading">Edit Profile</div>
+        <div class="panel-body">
+            
+            <!-- Connect current SharedProperties to this -->
+
+            <div class="container" id="controller-container">
+                <label class="control-label">Username</label> <i class="fa fa-info-circle" title="Provide a username for your account."></i>
+                <input type="text" class="form-control" ng-model="user_name" placeholder="Enter username..." maxlength="25">
+
+                <label class="control-label">Email</label> <i class="fa fa-info-circle" title="Provide an email for your account."></i>
+                <input type="email" class="form-control" ng-model="email" placeholder="Enter email..." maxlength="320" required>
+
+                <label class="control-label">Current Password</label> <i class="fa fa-info-circle" title="Type your current account password here."></i>
+                <input type="password" class="form-control" ng-model="current_password" placeholder="Enter password..." maxlength="60" minlength="10" required>
+                
+                <label class="control-label">New Password</label> <i class="fa fa-info-circle" title="Type the new account password you want here."></i>
+                <input type="password" class="form-control" ng-model="new_password" placeholder="Enter password..." maxlength="60" minlength="10" required>
+
+                <label class="control-label">Confirm New Password</label> <i class="fa fa-info-circle" title="Type your new account password again, for verification purposes."></i>
+                <input type="password" class="form-control" ng-model="repeat_new_password" placeholder="Enter password again..." maxlength="60" minlength="10" required>
+
+            </div>
+            
+        </div>
+        <div class="panel-footer">
+            <div class="clearfix">
+                <button type="button" class="btn btn-default" ng-click="GoToProfile()">Cancel</button><!-- Use this to redirect to profile -->
+                <input class="btn btn-primary" type="submit" value="Submit Profile Edits" ng-click="EditProfile(user_name, email, current_password, new_password, repeat_new_password)">
+            </div>
+        </div>
+    </div>
+</div>

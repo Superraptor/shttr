@@ -1,0 +1,22 @@
+<div ng-controller="loginCtrl" class="modal show login-modal" id="modal" tabindex="-1" role="dialog" ng-init="init()">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Login</div>
+            <div class="modal-body">
+                <div>Don't have an account? Create one <a href="#/create_profile" ng-click="$hide();">here</a>.</div>
+                <form>
+                    <div class="modal-inner-content">
+                        <label class="control-label">Username or Email</label> <i class="fa fa-info-circle" title="Type either your username or your email address here."></i>
+                        <input type="text" class="form-control" ng-model="user" placeholder="Enter username or email..." required>
+                        <label class="control-label">Password</label> <i class="fa fa-info-circle" title="Type your account password here."></i>
+                        <input type="password" class="form-control" ng-model="password" placeholder="Enter password..." required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="login-close-button" ng-click="$hide();">Close</button>
+                        <input class="btn btn-primary" type="submit" value="Login" ng-click="login(user, password)">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

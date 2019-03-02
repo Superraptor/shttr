@@ -1,0 +1,18 @@
+/* Place content below navbar. */
+#content {
+    margin-top: 50px;
+    padding: 0;
+    width: 100vw;
+}
+
+/* Extend container for individual controllers/views. */
+#controller-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 0px;
+}
+
+/* Leaflet map height. Must be defined. */
+#mapid {
+    height: calc(100vh - 50px);
+}

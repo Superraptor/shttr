@@ -1,0 +1,24 @@
+{
+  "name": "shttr",
+  "homepage": "https://github.com/Superraptor/shttr",
+  "authors": [
+    "Clair",
+    "Jash",
+    "Braxton"
+  ],
+  "description": "Web application for rating bathrooms.",
+  "main": "index.html",
+  "keywords": [
+    "bathrooms",
+    "user",
+    "reviews"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

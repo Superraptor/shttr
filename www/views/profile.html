@@ -1,0 +1,25 @@
+<div ng-controller="profileCtrl" class="container" id="controller-container" ng-init="init()">
+    
+    <div class="container" id="modal-container"><span id="deleteModal" data-animation="am-fade-and-slide-top" data-placement="center" data-template-url="./views/modals/delete_profile.html" bs-modal="modal"></span></div>
+    
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div id="profile-buttons">
+                <button type="button" class="btn btn-primary" ng-click='editProfile()'>Edit Profile</button>
+                <button type="button" class="btn btn-danger" ng-click='deleteModal()'>Delete Profile</button>
+            </div>
+        </div>
+    </div>
+    
+    <ul class="list-group">
+        <li class="list-group-item active">SHTTR Profile</li>
+        <li class="list-group-item">
+            <b>Email</b> <i class="fa fa-info-circle" title="This is the email associated with your SHTTR account, as well as other accounts requiring email for API access."></i>
+            <span class="profile-justify">{{email}}</span>
+        </li>
+        <li class="list-group-item">
+            <b>Username</b> <i class="fa fa-info-circle" title="This is your SHTTR username, used only internally in SHTTR."></i>
+            <span class="profile-justify">{{user_name}}</span>
+        </li>
+    </ul>
+</div>
