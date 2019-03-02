@@ -1,0 +1,38 @@
+1. Search functionality [Braxton]
+	{
+		"user_current_location": [lat., long.],
+		"user_radius": N
+	}
+
+2. Creating a new bathroom [Jash]
+	{
+		"latitude": lat.,
+		"longitude": long.,
+		"cleanliness_rating": 0/5,
+		"attributes": {
+			"changing_station": Boolean
+			"bathroom_type": Men's/Women's/All Gender/Family
+			"handicap_accessible": {
+				"pop_value": Boolean,
+				"percent_users": X.XX
+			}
+			"hours": [
+				{
+					hour_open: XX,
+					hour_close: XX
+				} # Sunday
+				{} # Monday
+				etc.
+			]
+			"closed_other_reason": [
+				{
+					"year": XXXX,
+					"month": XX,
+					"day": XX,
+					"username": String,
+					"status": Boolean
+				}
+			]
+		}
+
+	}
