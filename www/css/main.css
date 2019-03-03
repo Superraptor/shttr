@@ -15,4 +15,26 @@
 /* Leaflet map height. Must be defined. */
 #mapid {
     height: calc(100vh - 50px);
+    z-index: 1;
+}
+
+/* Font family for website name. */
+.navbar-brand {
+    font-family: 'Open Sans Condensed', sans-serif !important;
+    font-size: 28px !important;
+}
+
+/* Slide container */
+#slide-container {
+    height: calc(100vh - 50px);
+    width: 400px;
+    z-index: 10;
+    right: 0;
+    top: 0;
+    position: absolute;
+    background-color: white;
+    margin-top: 50px;
+    padding: 0;
+    overflow-x: hidden;
+    margin-right: -400px;
 }

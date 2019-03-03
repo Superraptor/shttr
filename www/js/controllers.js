@@ -194,7 +194,7 @@
             var L = $window.L;
             
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position){
+                navigator.geolocation.getCurrentPosition(function(position) {
                     $scope.$apply(function(){
                         
                         var mapOptions = MapService.mapDefaults();
@@ -231,6 +231,34 @@
                             accessToken: 'pk.eyJ1Ijoic3VwZXJyYXB0b3IiLCJhIjoiY2pzcnpqMHA4MHJyZjQ0bzQ1MXdqcmJkOSJ9.B_Zl4HmHKNoIBsyUQXnwZA'
                         }).addTo(vm.map);
                         
+                        //vm.map.on('click', onMapClick);
+                        //var popup = new L.Popup();
+                        
+                        var toiletIcon = L.icon({
+                            iconUrl: './img/toilet_image.png',
+
+                            iconSize:     [95, 95], // size of the icon
+                            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                        });
+
+                        var example_marker = L.marker([39.1339842, -84.5143028], {icon: toiletIcon}).on('click', onMarkerClick).addTo(vm.map);
+                        // example_marker.bindPopup("This is a sample marker.").openPopup();
+                        
+                        /* function onMapClick(e) {
+                            var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
+
+                            popup.setLatLng(e.latlng);
+                            popup.setContent("You clicked the map at " + latlngStr);
+
+                            vm.map.openPopup(popup);
+                        } */
+                        
+                        function onMarkerClick(e) {
+                            console.log("HERE");
+                            $("#slide-container").animate({ "margin-right": 0 }, "slow");
+                        };
+                        
                     });
                 });
             } else {
@@ -261,7 +289,19 @@
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1Ijoic3VwZXJyYXB0b3IiLCJhIjoiY2pzcnpqMHA4MHJyZjQ0bzQ1MXdqcmJkOSJ9.B_Zl4HmHKNoIBsyUQXnwZA'
                 }).addTo(vm.map);
-            
+                
+                vm.map.on('click', onMapClick);
+                var popup = new L.Popup();
+
+                function onMapClick(e) {
+                    var latlngStr = '(' + e.latlng.lat + ', ' + e.latlng.lng + ')';
+
+                    popup.setLatLng(e.latlng);
+                    popup.setContent("You clicked the map at " + latlngStr);
+
+                    vm.map.openPopup(popup);
+                }
+                
             }
                         
             $scope.searchQuery = $location.search().query;
@@ -289,6 +329,11 @@
         /* Use query to create a new URL for search. */
         $scope.searchFunction = function (searchQuery, searchType) {
             $scope.location = $scope.location.url("/home?query=" + searchQuery + "&search_type=" + searchType);
+        };
+        
+        /* Use to close info area. */
+        $scope.closeSlideContainer = function (e) {
+            $("#slide-container").animate({ "margin-right": -400 }, "slow");
         };
         
     }]);

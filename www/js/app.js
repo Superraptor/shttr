@@ -17,6 +17,10 @@
         
         $routeProvider.
             when('/', {
+                templateUrl: './views/home.html',
+                controller: 'homeCtrl'
+            }).
+            when('/about', {
                 templateUrl: './views/about.html',
                 controller: 'aboutCtrl'
             }).
