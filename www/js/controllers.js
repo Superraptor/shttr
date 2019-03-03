@@ -14,6 +14,8 @@
         
         var latitude, longitude;
         
+        var selectedBathroom;
+        
         this.setUserFields = function (result) {
             user_email = result.email;
             user_name = result.username;
@@ -54,6 +56,18 @@
         this.delBathroomFields = function () {
             latitude = null;
             longitude = null;
+        };
+        
+        this.setSelectedBathroom = function (result) {
+            selectedBathroom = result.selectedBathroom;
+        };
+        
+        this.getSelectedBathroom = function () {
+            return selectedBathroom;
+        };
+        
+        this.delSelectedBathroom = function () {
+            selectedBathroom = null;
         };
         
     });
@@ -322,6 +336,9 @@
                                                 startTimeSat: json_object_bathrooms[i].startTimeSat,
                                                 endTimeSat: json_object_bathrooms[i].startTimeSat
                                             } 
+                                            
+                                            SharedProperties.setSelectedBathroom({selectedBathroom: $scope.selected_bathroom});
+                                            
                                         });
                                     }
                                     
@@ -433,6 +450,7 @@
         
         /* Use to edit a bathroom. */
         $scope.editModal = function () {
+            $scope.selected_bathroom_test = SharedProperties.getSelectedBathroom();
             document.querySelector('#editBathroomModal').click();
         };
         
@@ -662,6 +680,9 @@
     shttrControllers.controller('editBathroomCtrl', ['$scope', '$http', '$resource', 'SharedProperties', '$window', '$location', '$timeout', function ($scope, $http, $resource, SharedProperties, $window, $location, $timeout) {
         
         $scope.init = function () {
+            
+            $scope.selected_bathroom = SharedProperties.getSelectedBathroom();
+            
         };
         
         $scope.edit = function(rating,
@@ -751,7 +772,7 @@
                     "startTimeSat": $scope.startTimeSat,
                     "endTimeSat": $scope.endTimeSat
             }, function(err, req, resp){
-                $location.path("/home");
+                $('#edit-bathroom-close-button').click();
             });
         };
     }]);

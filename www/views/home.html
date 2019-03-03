@@ -22,20 +22,32 @@
                             <td>Rating</td>
                             <td>
                                 <span ng-switch="selected_bathroom.rating">
-                                    <span ng-switch-when="selected_bathroom.rating >= 1">
+                                    <span ng-switch-when="1">
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
-                                    <span ng-switch-when="selected_bathroom.rating >= 2">
+                                    <span ng-switch-when="2">
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
-                                    <span ng-switch-when="selected_bathroom.rating >= 3">
+                                    <span ng-switch-when="3">
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
-                                    <span ng-switch-when="selected_bathroom.rating >= 4">
+                                    <span ng-switch-when="4">
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
-                                    <span ng-switch-when="selected_bathroom.rating >= 5">
+                                    <span ng-switch-when="5">
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                    </span>
+                                    <span ng-switch-default>{{selected_bathroom.rating}}
                                     </span>
                                 </span>
                                         
@@ -118,7 +130,7 @@
         
         <br/>
         
-        <button type="button" class="btn btn-warning" ng-click='editModal()' style="margin-left: 10px; margin-bottom: 10px;">Edit Bathroom</button>
+        <button type="button" class="btn btn-warning" ng-click='editModal(selected_bathroom)' style="margin-left: 10px; margin-bottom: 10px;">Edit Bathroom</button>
         
         <button type="button" class="btn btn-danger" ng-click='deleteModal()' style="margin-left: 10px; margin-bottom: 10px;">Delete Bathroom</button>
         

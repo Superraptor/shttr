@@ -140,7 +140,7 @@ def delete_search(coords):
 
 
 def edit_bathroom(bathroom_json):
-    if type(coords) == "str":
+    if type(bathroom_json) == "str":
         new_values = json.load(bathroom_json)
     else:
         new_values = bathroom_json
