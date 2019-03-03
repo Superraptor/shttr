@@ -809,7 +809,7 @@
                     "endTimeSat": $scope.new_endTimeSat
             }, function(err, req, resp){
                 $('#edit-bathroom-close-button').click();
-                //location.reload();
+                location.reload();
             });
         };
     }]);
