@@ -1,0 +1,133 @@
+<div ng-controller="addBathroomCtrl" class="modal show add-bathroom-modal" id="modal" tabindex="-1" role="dialog" ng-init="init()">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Add Bathroom</div>
+            <div class="modal-body">
+                <div class="modal-inner-content">
+                    
+                    <label class="control-label">Rating</label> <i class="fa fa-info-circle" title="Provide a rating between 1 and 5 for the bathroom."></i>
+                    <input type="number" class="form-control" ng-model="rating" placeholder="Enter rating..." step="1" min="1" max="5">
+                    
+                    <label class="control-label">Building</label> <i class="fa fa-info-circle" title="Provide a building name associated with the bathroom."></i>
+                    <input type="text" class="form-control" ng-model="building" placeholder="Enter building..." maxlength="100">
+                    
+                    <label class="control-label">Floor</label> <i class="fa fa-info-circle" title="Provide a building floor on which this bathroom resides."></i>
+                    <input type="number" class="form-control" ng-model="floor" placeholder="Enter a floor..." step="1", min=-20 max=180>
+                    
+                    <label class="control-label">Organization</label> <i class="fa fa-info-circle" title="Provide an organization associated with the bathroom."></i>
+                    <input type="text" class="form-control" ng-model="organization" placeholder="Enter organization..." maxlength="100">
+                    
+                    <br/>
+                    
+                    <!-- Type -->
+                    <div class="radio">
+                    <label><input type="radio" name="bathroom_type" ng-model="bathroom_type" value="all gender">All Gender</label>
+                    </div>
+                    <div class="radio">
+                    <label><input type="radio" name="bathroom_type" ng-model="bathroom_type" value="women's">Women's</label>
+                    </div>
+                    <div class="radio">
+                    <label><input type="radio" name="bathroom_type" ng-model="bathroom_type" value="men's">Men's</label>
+                    </div>
+                    <div class="radio">
+                    <label><input type="radio" name="bathroom_type" ng-model="bathroom_type" value="family">Family</label>
+                    </div>
+                    <div class="radio">
+                    <label><input type="radio" name="bathroom_type" ng-model="bathroom_type" value="unspecified">Unspecified</label>
+                    </div>
+                    <div class="radio">
+                    <label><input type="radio" name="bathroom_type" ng-model="bathroom_type" value="unknown">Unknown</label>
+                    </div>
+                    
+                    <br/>
+                    
+                    <div style="margin-left:20px">
+                        <!-- Open? -->
+                        <label class="checkbox"><input type="checkbox" value="open" ng-model="open">Open</label>
+
+                        <!-- Accessible? -->
+                        <label class="checkbox"><input type="checkbox" value="accessible" ng-model="accessible">Accessible</label>
+
+                        <!-- Changing Stations? -->
+                        <label class="checkbox"><input type="checkbox" value="changing_stations" ng-model="changing_stations">Changing Stations</label>
+                    </div>
+                        
+                    <br/>
+                    
+                    <!-- Hours -->
+                    <label class="control-label">Hours</label> <i class="fa fa-info-circle" title="Provide hours for this bathroom."></i>
+                    
+                    <div class="form-group form-inline">                            
+                        <label for="mondayHours">Sunday</label>
+                        <input type="time" class="form-control" id="startTimeSun" placeholder="Sun. Start Hours..." ng-model="startTimeSun">
+                        <input type="time" class="form-control" id="endTimeSun" placeholder="Sun. End Hours..." ng-model="endTimeSun">
+                    </div>
+                    
+                    <div class="form-group form-inline">                            
+                        <label for="mondayHours">Monday</label>
+                        <input type="time" class="form-control" id="startTimeMon" placeholder="Mon. Start Hours..." ng-model="startTimeMon">
+                        <input type="time" class="form-control" id="endTimeMon" placeholder="Mon. End Hours..." ng-model="endTimeMon">
+                    </div>
+                    
+                    <div class="form-group form-inline">                            
+                        <label for="tuesdayHours">Tuesday</label>
+                        <input type="time" class="form-control" id="startTimeTues" placeholder="Tues. Start Hours..." ng-model="startTimeTues">
+                        <input type="time" class="form-control" id="endTimeTues" placeholder="Tues. End Hours..." ng-model="endTimeTues">
+                    </div>
+                    
+                    <div class="form-group form-inline">                            
+                        <label for="wednesdayHours">Wednesday</label>
+                        <input type="time" class="form-control" id="startTimeWed" placeholder="Wed. Start Hours..." ng-model="startTimeWed">
+                        <input type="time" class="form-control" id="endTimeWed" placeholder="Wed. End Hours..." ng-model="endTimeWed">
+                    </div>
+                    
+                    <div class="form-group form-inline">                            
+                        <label for="thurdayHours">Thursday</label>
+                        <input type="time" class="form-control" id="startTimeThurs" placeholder="Thurs. Start Hours..." ng-model="startTimeThurs">
+                        <input type="time" class="form-control" id="endTimeThurs" placeholder="Thurs. End Hours..." ng-model="endTimeThurs">
+                    </div>
+                    
+                    <div class="form-group form-inline">                            
+                        <label for="fridayHours">Friday</label>
+                        <input type="time" class="form-control" id="startTimeFri" placeholder="Fri. Start Hours..." ng-model="startTimeFri">
+                        <input type="time" class="form-control" id="endTimeFri" placeholder="Fri. End Hours..." ng-model="endTimeFri">
+                    </div>
+                    
+                    <div class="form-group form-inline">                            
+                        <label for="saturdayHours">Saturday</label>
+                        <input type="time" class="form-control" id="startTimeSat" placeholder="Sat. Start Hours..." ng-model="startTimeSat">
+                        <input type="time" class="form-control" id="endTimeSat" placeholder="Sat. End Hours..." ng-model="endTimeSat">
+                    </div>
+                
+                </div>
+                
+                <div class="modal-footer">
+                    <input class="btn btn-primary" type="submit" value="Submit" ng-click="AddBathroom(rating,
+                        building,
+                        floor,
+                        organization,
+                        bathroom_type,
+                        open,
+                        accessible,
+                        changing_stations,
+
+                        startTimeSun,
+                        endTimeSun,
+                        startTimeMon,
+                        endTimeMon,
+                        startTimeTues,
+                        endTimeTues,
+                        startTimeWed,
+                        endTimeWed,
+                        startTimeThurs,
+                        endTimeThurs,
+                        startTimeFri,
+                        endTimeFri,
+                        startTimeSat,
+                        endTimeSat)">
+                    <button type="button" class="btn btn-default" id="add-bathroom-close-button" ng-click="$hide();">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

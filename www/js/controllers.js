@@ -12,6 +12,8 @@
         
         var logged_in = false;
         
+        var latitude, longitude;
+        
         this.setUserFields = function (result) {
             user_email = result.email;
             user_name = result.username;
@@ -38,6 +40,20 @@
         
         this.getLoginStatus = function () {
             return logged_in;
+        };
+        
+        this.setBathroomFields = function (result) {
+            latitude = result.latitude;
+            longitude = result.longitude;
+        };
+        
+        this.getBathroomFields = function () {
+            return {latitude: latitude, longitude: longitude}
+        };
+        
+        this.delBathroomFields = function () {
+            latitude = null;
+            longitude = null;
         };
         
     });
@@ -231,7 +247,7 @@
                             accessToken: 'pk.eyJ1Ijoic3VwZXJyYXB0b3IiLCJhIjoiY2pzcnpqMHA4MHJyZjQ0bzQ1MXdqcmJkOSJ9.B_Zl4HmHKNoIBsyUQXnwZA'
                         }).addTo(vm.map);
                         
-                        //vm.map.on('click', onMapClick);
+                        vm.map.on('click', onMapClick);
                         //var popup = new L.Popup();
                         
                         var toiletIcon = L.icon({
@@ -245,17 +261,24 @@
                         var example_marker = L.marker([39.1339842, -84.5143028], {icon: toiletIcon}).on('click', onMarkerClick).addTo(vm.map);
                         // example_marker.bindPopup("This is a sample marker.").openPopup();
                         
-                        /* function onMapClick(e) {
-                            var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
+                        function onMapClick(e) {
+                            //var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
+                            
+                            $scope.latitude = e.latlng.lat;
+                            $scope.longitude = e.latlng.lng;
+                            
+                            SharedProperties.setBathroomFields({latitude: $scope.latitude, longitude: $scope.longitude});
+                            
+                            /* Use to add a bathroom. */
+                            document.querySelector('#addBathroomModal').click();
 
-                            popup.setLatLng(e.latlng);
-                            popup.setContent("You clicked the map at " + latlngStr);
+                            //popup.setLatLng(e.latlng);
+                            //popup.setContent("You clicked the map at " + latlngStr);
 
-                            vm.map.openPopup(popup);
-                        } */
+                            //vm.map.openPopup(popup);
+                        }
                         
                         function onMarkerClick(e) {
-                            console.log("HERE");
                             $("#slide-container").animate({ "margin-right": 0 }, "slow");
                         };
                         
@@ -334,6 +357,16 @@
         /* Use to close info area. */
         $scope.closeSlideContainer = function (e) {
             $("#slide-container").animate({ "margin-right": -400 }, "slow");
+        };
+        
+        /* Use to delete a bathroom. */
+        $scope.deleteModal = function () {
+            document.querySelector('#deleteBathroomModal').click();
+        };
+        
+        /* Use to edit a bathroom. */
+        $scope.editModal = function () {
+            document.querySelector('#editBathroomModal').click();
         };
         
     }]);
@@ -527,6 +560,167 @@
                 $location.path("/home");
             });
         };
+    }]);
+    
+    shttrControllers.controller('deleteBathroomCtrl', ['$scope', '$http', '$resource', 'SharedProperties', '$window', '$location', '$timeout', function ($scope, $http, $resource, SharedProperties, $window, $location, $timeout) {
+        
+        $scope.init = function () {
+        };
+        
+        $scope.delete = function() {
+            $scope.user_fields = SharedProperties.getUserFields();
+            
+            $scope.email = $scope.user_fields.user_email;
+            $scope.password = $scope.user_fields.user_password_hash;
+            $scope.user_name = $scope.user_fields.user_name;
+            
+            delete_bathroom(function() {
+                // Add delete ftn here.
+                
+                $scope.results = SharedProperties.getBathroomFields();
+                $scope.latitude = $scope.results.latitude;
+                $scope.longitude = $scope.results.longitude;
+
+                $location.path("/home");
+            });
+        };
+    }]);
+    
+    shttrControllers.controller('editBathroomCtrl', ['$scope', '$http', '$resource', 'SharedProperties', '$window', '$location', '$timeout', function ($scope, $http, $resource, SharedProperties, $window, $location, $timeout) {
+        
+        $scope.init = function () {
+        };
+        
+        $scope.edit = function() {
+            $scope.user_fields = SharedProperties.getUserFields();
+            
+            $scope.email = $scope.user_fields.user_email;
+            $scope.password = $scope.user_fields.user_password_hash;
+            $scope.user_name = $scope.user_fields.user_name;
+            
+            edit_bathroom(function(
+                rating,
+                building,
+                floor,
+                organization,
+                bathroom_type,
+                open,
+                accessible,
+                changing_stations,
+
+                startTimeSun,
+                endTimeSun,
+                startTimeMon,
+                endTimeMon,
+                startTimeTues,
+                endTimeTues,
+                startTimeWed,
+                endTimeWed,
+                startTimeThurs,
+                endTimeThurs,
+                startTimeFri,
+                endTimeFri,
+                startTimeSat,
+                endTimeSat) {
+                
+                $scope.rating = rating;
+                $scope.building = building;
+                $scope.floor = floor;
+                $scope.organization = organization;
+                $scope.bathroom_type = bathroom_type;
+                $scope.open = open;
+                $scope.accessible = accessible;
+                $scope.changing_stations = changing_stations;
+
+                $scope.startTimeSun = startTimeSun;
+                $scope.endTimeSun = endTimeSun;
+                $scope.startTimeMon = startTimeMon;
+                $scope.endTimeMon = endTimeMon;
+                $scope.startTimeTues = startTimeTues;
+                $scope.endTimeTues = endTimeTues;
+                $scope.startTimeWed = startTimeWed;
+                $scope.endTimeWed = endTimeWed;
+                $scope.startTimeThurs = startTimeThurs;
+                $scope.endTimeThurs = endTimeThurs;
+                $scope.startTimeFri = startTimeFri;
+                $scope.endTimeFri = endTimeFri;
+                $scope.startTimeSat = startTimeSat;
+                $scope.endTimeSat = endTimeSat;
+                
+                $scope.results = SharedProperties.getBathroomFields();
+                $scope.latitude = $scope.results.latitude;
+                $scope.longitude = $scope.results.longitude;
+                
+                // Add edit ftn here.
+                
+                $location.path("/home");
+            });
+        };
+    }]);
+    
+    shttrControllers.controller('addBathroomCtrl', ['$scope', '$http', '$resource', 'SharedProperties', '$timeout', '$location', function ($scope, $http, $resource, SharedProperties, $timeout, $location) {
+        
+        $scope.GoHome = function () {
+            $location.path("/");
+        };
+        
+        $scope.AddBathroom = function (rating,
+                building,
+                floor,
+                organization,
+                bathroom_type,
+                open,
+                accessible,
+                changing_stations,
+
+                startTimeSun,
+                endTimeSun,
+                startTimeMon,
+                endTimeMon,
+                startTimeTues,
+                endTimeTues,
+                startTimeWed,
+                endTimeWed,
+                startTimeThurs,
+                endTimeThurs,
+                startTimeFri,
+                endTimeFri,
+                startTimeSat,
+                endTimeSat) {
+
+                $scope.rating = rating;
+                $scope.building = building;
+                $scope.floor = floor;
+                $scope.organization = organization;
+                $scope.bathroom_type = bathroom_type;
+                $scope.open = open;
+                $scope.accessible = accessible;
+                $scope.changing_stations = changing_stations;
+
+                $scope.startTimeSun = startTimeSun;
+                $scope.endTimeSun = endTimeSun;
+                $scope.startTimeMon = startTimeMon;
+                $scope.endTimeMon = endTimeMon;
+                $scope.startTimeTues = startTimeTues;
+                $scope.endTimeTues = endTimeTues;
+                $scope.startTimeWed = startTimeWed;
+                $scope.endTimeWed = endTimeWed;
+                $scope.startTimeThurs = startTimeThurs;
+                $scope.endTimeThurs = endTimeThurs;
+                $scope.startTimeFri = startTimeFri;
+                $scope.endTimeFri = endTimeFri;
+                $scope.startTimeSat = startTimeSat;
+                $scope.endTimeSat = endTimeSat;
+                
+                $scope.results = SharedProperties.getBathroomFields();
+                $scope.latitude = $scope.results.latitude;
+                $scope.longitude = $scope.results.longitude;
+                
+                // Add create ftn here.
+
+                $location.path("/home");
+        }
+        
     }]);
     
 }());

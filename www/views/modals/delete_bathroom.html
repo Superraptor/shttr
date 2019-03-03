@@ -1,0 +1,16 @@
+<div ng-controller="deleteBathroomCtrl" class="modal show delete-profile-modal" id="modal" tabindex="30" role="dialog" ng-init="init()">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">Delete Bathroom</div>
+            <div class="modal-body">
+                <div class="modal-inner-content">
+                    <div>Are you sure you want to delete this bathroom?</div>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-primary" type="submit" value="Yes" ng-click="delete()">
+                    <button type="button" class="btn btn-default" id="delete-bathroom-close-button" ng-click="$hide();">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

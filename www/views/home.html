@@ -1,7 +1,126 @@
+<div class="container" id="modal-container"><span id="deleteBathroomModal" data-animation="am-fade-and-slide-top" data-placement="center" data-template-url="./views/modals/delete_bathroom.html" bs-modal="modal"></span></div>
+    
+<div class="container" id="modal-container"><span id="editBathroomModal" data-animation="am-fade-and-slide-top" data-placement="center" data-template-url="./views/modals/edit_bathroom.html" bs-modal="modal"></span></div>
+
+<div class="container" id="modal-container"><span id="addBathroomModal" data-animation="am-fade-and-slide-top" data-placement="center" data-template-url="./views/modals/add_bathroom.html" bs-modal="modal"></span></div>
+
 <div ng-controller="homeCtrl" class="container" id="controller-container" ng-init="init()">
+    
     <div id="mapid"></div>
     
     <div id="slide-container">
-        <button type="button" class="btn btn-danger" id="close-slide-container" ng-click="closeSlideContainer()">Close</button>
+        <button type="button" class="btn btn-danger" id="close-slide-container" ng-click="closeSlideContainer()" id="close-slide-container-button" style="right: 10px; top: 10px; position: absolute;">Close</button>
+        
+        <br/>
+        
+        <div style="margin-top:40px;">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        
+                        <tr>
+                            <td>Rating</td>
+                            <td>
+                                <span ng-switch="rating_var">
+                                    <span ng-switch-when="rating_var >= 1">
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                    </span>
+                                    <span ng-switch-when="rating_var >= 2">
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                    </span>
+                                    <span ng-switch-when="rating_var >= 3">
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                    </span>
+                                    <span ng-switch-when="rating_var >= 4">
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                    </span>
+                                    <span ng-switch-when="rating_var >= 5">
+                                        <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
+                                    </span>
+                                </span>
+                                        
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Building</td>
+                            <td>{{building}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Floor</td>
+                            <td>{{floor}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Organization</td>
+                            <td>{{organization}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Type</td>
+                            <td>{{bathroom_type}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Open?</td>
+                            <td>{{open}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Accessible?</td>
+                            <td>{{accessibility}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Changing Stations?</td>
+                            <td>{{changing_station}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td rowspan="8">Hours</td>
+                            <td>
+                                <tr>
+                                    <td>Sunday</td>
+                                    <td>{{sunday_hours}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Monday</td>
+                                    <td>{{monday_hours}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tuesday</td>
+                                    <td>{{tuesday_hours}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wednesday</td>
+                                    <td>{{wednesday_hours}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Thursday</td>
+                                    <td>{{thursday_hours}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Friday</td>
+                                    <td>{{friday_hours}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Saturday</td>
+                                    <td>{{saturday_hours}}</td>
+                                </tr>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <br/>
+        
+        <button type="button" class="btn btn-warning" ng-click='editModal()' style="margin-left: 10px; margin-bottom: 10px;">Edit Bathroom</button>
+        
+        <button type="button" class="btn btn-danger" ng-click='deleteModal()' style="margin-left: 10px; margin-bottom: 10px;">Delete Bathroom</button>
+        
     </div>
 </div>
