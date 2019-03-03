@@ -44,7 +44,7 @@ def within_range(location, found_bathroom):
 
 # Loops through each database member checking for a rating above the specified cleanliness
 def search_bathroom_cleanliness(clean_search):
-    if type(coords) == "str":
+    if type(clean_search) == "str":
         clean_rating = json.load(clean_search)
     else:
         clean_rating = clean_search
@@ -157,6 +157,7 @@ def edit_bathroom(bathroom_json):
                 all_bathrooms[count] = new_values
                 break;
             count += 1
+            
     with open(bathroom_database_name, mode='w') as database:
         if found:
             json.dump(all_bathrooms, database)

@@ -20,7 +20,7 @@
                         
                         <tr>
                             <td>Rating</td>
-                            <td>
+                            <td colspan="2">
                                 <span ng-switch="selected_bathroom.rating">
                                     <span ng-switch-when="1">
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
@@ -56,37 +56,37 @@
                         
                         <tr>
                             <td>Building</td>
-                            <td>{{selected_bathroom.building}}</td>
+                            <td colspan="2">{{selected_bathroom.building}}</td>
                         </tr>
                         
                         <tr>
                             <td>Floor</td>
-                            <td>{{selected_bathroom.floor}}</td>
+                            <td colspan="2">{{selected_bathroom.floor}}</td>
                         </tr>
                         
                         <tr>
                             <td>Organization</td>
-                            <td>{{selected_bathroom.organization}}</td>
+                            <td colspan="2">{{selected_bathroom.organization}}</td>
                         </tr>
                         
                         <tr>
                             <td>Type</td>
-                            <td>{{selected_bathroom.bathroom_type}}</td>
+                            <td colspan="2">{{selected_bathroom.bathroom_type}}</td>
                         </tr>
                         
                         <tr>
                             <td>Open?</td>
-                            <td>{{selected_bathroom.open}}</td>
+                            <td colspan="2">{{selected_bathroom.open}}</td>
                         </tr>
                         
                         <tr>
                             <td>Accessible?</td>
-                            <td>{{selected_bathroom.accessibility}}</td>
+                            <td colspan="2">{{selected_bathroom.accessibility}}</td>
                         </tr>
                         
                         <tr>
                             <td>Changing Stations?</td>
-                            <td>{{selected_bathroom.changing_station}}</td>
+                            <td colspan="2">{{selected_bathroom.changing_station}}</td>
                         </tr>
                         
                         <tr>
@@ -94,31 +94,38 @@
                             <td>
                                 <tr>
                                     <td>Sunday</td>
-                                    <td>{{sunday_hours}}</td>
+                                    <td>{{selected_bathroom.startTimeSun}}</td>
+                                    <td>{{selected_bathroom.endTimeSun}}</td>
                                 </tr>
                                 <tr>
                                     <td>Monday</td>
-                                    <td>{{monday_hours}}</td>
+                                    <td>{{selected_bathroom.startTimeMon}}</td>
+                                    <td>{{selected_bathroom.endTimeMon}}</td>
                                 </tr>
                                 <tr>
                                     <td>Tuesday</td>
-                                    <td>{{tuesday_hours}}</td>
+                                    <td>{{selected_bathroom.startTimeTues}}</td>
+                                    <td>{{selected_bathroom.endTimeTues}}</td>
                                 </tr>
                                 <tr>
                                     <td>Wednesday</td>
-                                    <td>{{wednesday_hours}}</td>
+                                    <td>{{selected_bathroom.startTimeWed}}</td>
+                                    <td>{{selected_bathroom.endTimeWed}}</td>
                                 </tr>
                                 <tr>
                                     <td>Thursday</td>
-                                    <td>{{thursday_hours}}</td>
+                                    <td>{{selected_bathroom.startTimeThurs}}</td>
+                                    <td>{{selected_bathroom.endTimeThurs}}</td>
                                 </tr>
                                 <tr>
                                     <td>Friday</td>
-                                    <td>{{friday_hours}}</td>
+                                    <td>{{selected_bathroom.startTimeFri}}</td>
+                                    <td>{{selected_bathroom.endTimeFri}}</td>
                                 </tr>
                                 <tr>
                                     <td>Saturday</td>
-                                    <td>{{saturday_hours}}</td>
+                                    <td>{{selected_bathroom.startTimeSat}}</td>
+                                    <td>{{selected_bathroom.endTimeSat}}</td>
                                 </tr>
                             </td>
                         </tr>

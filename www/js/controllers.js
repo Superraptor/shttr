@@ -315,26 +315,26 @@
                                                 accessible: json_object_bathrooms[i].accessible,
                                                 changing_stations: json_object_bathrooms[i].changing_stations,
                                                 
-                                                startTimeSun: json_object_bathrooms[i].startTimeSun,
-                                                endTimeSun: json_object_bathrooms[i].startTimeSun,
+                                                startTimeSun: json_object_bathrooms[i].startTimeSun ? new Date(json_object_bathrooms[i].startTimeSun).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeSun,
+                                                endTimeSun: json_object_bathrooms[i].endTimeSun ? new Date(json_object_bathrooms[i].endTimeSun).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeSun,
                                                 
-                                                startTimeMon: json_object_bathrooms[i].startTimeMon,
-                                                endTimeMon: json_object_bathrooms[i].startTimeMon,
+                                                startTimeMon: json_object_bathrooms[i].startTimeMon ? new Date(json_object_bathrooms[i].startTimeMon).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeMon,
+                                                endTimeMon: json_object_bathrooms[i].endTimeMon ? new Date(json_object_bathrooms[i].endTimeMon).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeMon,
                                                 
-                                                startTimeTues: json_object_bathrooms[i].startTimeTues,
-                                                endTimeTues: json_object_bathrooms[i].startTimeTues,
+                                                startTimeTues: json_object_bathrooms[i].startTimeTues ? new Date(json_object_bathrooms[i].startTimeTues).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeTues,
+                                                endTimeTues: json_object_bathrooms[i].endTimeTues ? new Date(json_object_bathrooms[i].endTimeTues).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeTues,
                                                 
-                                                startTimeWed: json_object_bathrooms[i].startTimeWed,
-                                                endTimeWed: json_object_bathrooms[i].startTimeWed,
+                                                startTimeWed: json_object_bathrooms[i].startTimeWed ? new Date(json_object_bathrooms[i].startTimeWed).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeWed,
+                                                endTimeWed: json_object_bathrooms[i].endTimeWed ? new Date(json_object_bathrooms[i].endTimeWed).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeWed,
                                                 
-                                                startTimeThurs: json_object_bathrooms[i].startTimeThurs,
-                                                endTimeThurs: json_object_bathrooms[i].startTimeThurs,
+                                                startTimeThurs: json_object_bathrooms[i].startTimeThurs ? new Date(json_object_bathrooms[i].startTimeThurs).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeThurs,
+                                                endTimeThurs: json_object_bathrooms[i].endTimeThurs ? new Date(json_object_bathrooms[i].endTimeThurs).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeThurs,
                                                 
-                                                startTimeFri: json_object_bathrooms[i].startTimeFri,
-                                                endTimeFri: json_object_bathrooms[i].startTimeFri,
+                                                startTimeFri: json_object_bathrooms[i].startTimeFri ? new Date(json_object_bathrooms[i].startTimeFri).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeFri,
+                                                endTimeFri: json_object_bathrooms[i].endTimeFri ? new Date(json_object_bathrooms[i].endTimeFri).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeFri,
                                                 
-                                                startTimeSat: json_object_bathrooms[i].startTimeSat,
-                                                endTimeSat: json_object_bathrooms[i].startTimeSat
+                                                startTimeSat: json_object_bathrooms[i].startTimeSat ? new Date(json_object_bathrooms[i].startTimeSat).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3") : json_object_bathrooms[i].startTimeSat,
+                                                endTimeSat: json_object_bathrooms[i].endTimeSat ? new Date(json_object_bathrooms[i].endTimeSat).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")  : json_object_bathrooms[i].startTimeSat
                                             } 
                                             
                                             SharedProperties.setSelectedBathroom({selectedBathroom: $scope.selected_bathroom});
@@ -350,6 +350,10 @@
                         });
                         
                         function onMapClick(e) {
+                            
+                            /* Close modal if open. */
+                            $("#slide-container").animate({ "margin-right": -400 }, "slow");
+                            
                             //var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
                             
                             $scope.latitude = e.latlng.lat;
@@ -715,64 +719,91 @@
             $scope.password = $scope.user_fields.user_password_hash;
             $scope.user_name = $scope.user_fields.user_name;
             
-            $scope.rating = rating;
-            $scope.building = building;
-            $scope.floor = floor;
-            $scope.organization = organization;
-            $scope.bathroom_type = bathroom_type;
-            $scope.open = open;
-            $scope.accessible = accessible;
-            $scope.changing_stations = changing_stations;
+            $scope.new_rating = rating;
+            $scope.new_building = building;
+            $scope.new_floor = floor;
+            $scope.new_organization = organization;
+            $scope.new_bathroom_type = bathroom_type;
+            $scope.new_open = open;
+            $scope.new_accessible = accessible;
+            $scope.new_changing_stations = changing_stations;
 
-            $scope.startTimeSun = startTimeSun;
-            $scope.endTimeSun = endTimeSun;
-            $scope.startTimeMon = startTimeMon;
-            $scope.endTimeMon = endTimeMon;
-            $scope.startTimeTues = startTimeTues;
-            $scope.endTimeTues = endTimeTues;
-            $scope.startTimeWed = startTimeWed;
-            $scope.endTimeWed = endTimeWed;
-            $scope.startTimeThurs = startTimeThurs;
-            $scope.endTimeThurs = endTimeThurs;
-            $scope.startTimeFri = startTimeFri;
-            $scope.endTimeFri = endTimeFri;
-            $scope.startTimeSat = startTimeSat;
-            $scope.endTimeSat = endTimeSat;
+            $scope.new_startTimeSun = startTimeSun;
+            $scope.new_endTimeSun = endTimeSun;
+            $scope.new_startTimeMon = startTimeMon;
+            $scope.new_endTimeMon = endTimeMon;
+            $scope.new_startTimeTues = startTimeTues;
+            $scope.new_endTimeTues = endTimeTues;
+            $scope.new_startTimeWed = startTimeWed;
+            $scope.new_endTimeWed = endTimeWed;
+            $scope.new_startTimeThurs = startTimeThurs;
+            $scope.new_endTimeThurs = endTimeThurs;
+            $scope.new_startTimeFri = startTimeFri;
+            $scope.new_endTimeFri = endTimeFri;
+            $scope.new_startTimeSat = startTimeSat;
+            $scope.new_endTimeSat = endTimeSat;
 
             $scope.results = SharedProperties.getBathroomFields();
             $scope.latitude = $scope.results.latitude;
             $scope.longitude = $scope.results.longitude;
 
             // Add edit ftn here.
-            console.log($scope.results);
+            
+            var new_json = {
+                "latitude": $scope.latitude,
+                "longitude": $scope.longitude,
+                "rating": $scope.new_rating,
+                "building": $scope.new_building,
+                "floor": $scope.new_floor,
+                "organization": $scope.new_organization,
+                "bathroom_type": $scope.new_bathroom_type,
+                "open": $scope.new_open_status,
+                "accessible": $scope.new_accessible,
+                "changing_stations": $scope.new_changing_stations,
+                "startTimeSun": $scope.new_startTimeSun,
+                "endTimeSun": $scope.new_endTimeSun,
+                "startTimeMon": $scope.new_startTimeMon,
+                "endTimeMon": $scope.new_endTimeMon,
+                "startTimeTues": $scope.new_startTimeTues,
+                "endTimeTues": $scope.new_endTimeTues,
+                "startTimeWed": $scope.new_startTimeWed,
+                "endTimeWed": $scope.new_endTimeWed,
+                "startTimeThurs": $scope.new_startTimeThurs,
+                "endTimeThurs": $scope.new_endTimeThurs,
+                "startTimeFri": $scope.new_startTimeFri,
+                "endTimeFri": $scope.new_endTimeFri,
+                "startTimeSat": $scope.new_startTimeSat,
+                "endTimeSat": $scope.new_endTimeSat
+            }
             
             $.get( "http://localhost:5000/edit_bathroom", {
                     "latitude": $scope.latitude,
                     "longitude": $scope.longitude,
-                    "rating": $scope.rating,
-                    "building": $scope.building,
-                    "floor": $scope.floor,
-                    "organization": $scope.organization,
-                    "bathroom_type": $scope.bathroom_type,
-                    "open": $scope.open_status,
-                    "accessible": $scope.accessible,
-                    "changing_stations": $scope.changing_stations,
-                    "startTimeSun": $scope.startTimeSun,
-                    "endTimeSun": $scope.endTimeSun,
-                    "startTimeMon": $scope.startTimeMon,
-                    "endTimeMon": $scope.endTimeMon,
-                    "startTimeTues": $scope.startTimeTues,
-                    "endTimeTues": $scope.endTimeTues,
-                    "startTimeWed": $scope.startTimeWed,
-                    "endTimeWed": $scope.endTimeWed,
-                    "startTimeThurs": $scope.startTimeThurs,
-                    "endTimeThurs": $scope.endTimeThurs,
-                    "startTimeFri": $scope.startTimeFri,
-                    "endTimeFri": $scope.endTimeFri,
-                    "startTimeSat": $scope.startTimeSat,
-                    "endTimeSat": $scope.endTimeSat
+                    "rating": $scope.new_rating,
+                    "building": $scope.new_building,
+                    "floor": $scope.new_floor,
+                    "organization": $scope.new_organization,
+                    "bathroom_type": $scope.new_bathroom_type,
+                    "open": $scope.new_open_status,
+                    "accessible": $scope.new_accessible,
+                    "changing_stations": $scope.new_changing_stations,
+                    "startTimeSun": $scope.new_startTimeSun,
+                    "endTimeSun": $scope.new_endTimeSun,
+                    "startTimeMon": $scope.new_startTimeMon,
+                    "endTimeMon": $scope.new_endTimeMon,
+                    "startTimeTues": $scope.new_startTimeTues,
+                    "endTimeTues": $scope.new_endTimeTues,
+                    "startTimeWed": $scope.new_startTimeWed,
+                    "endTimeWed": $scope.new_endTimeWed,
+                    "startTimeThurs": $scope.new_startTimeThurs,
+                    "endTimeThurs": $scope.new_endTimeThurs,
+                    "startTimeFri": $scope.new_startTimeFri,
+                    "endTimeFri": $scope.new_endTimeFri,
+                    "startTimeSat": $scope.new_startTimeSat,
+                    "endTimeSat": $scope.new_endTimeSat
             }, function(err, req, resp){
                 $('#edit-bathroom-close-button').click();
+                location.reload();
             });
         };
     }]);
@@ -806,6 +837,8 @@
                 endTimeFri,
                 startTimeSat,
                 endTimeSat) {
+                
+                console.log(organization);
 
                 $scope.rating = rating;
                 $scope.building = building;
