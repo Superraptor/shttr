@@ -21,20 +21,20 @@
                         <tr>
                             <td>Rating</td>
                             <td>
-                                <span ng-switch="rating_var">
-                                    <span ng-switch-when="rating_var >= 1">
+                                <span ng-switch="selected_bathroom.rating">
+                                    <span ng-switch-when="selected_bathroom.rating >= 1">
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
-                                    <span ng-switch-when="rating_var >= 2">
+                                    <span ng-switch-when="selected_bathroom.rating >= 2">
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
-                                    <span ng-switch-when="rating_var >= 3">
+                                    <span ng-switch-when="selected_bathroom.rating >= 3">
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
-                                    <span ng-switch-when="rating_var >= 4">
+                                    <span ng-switch-when="selected_bathroom.rating >= 4">
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
-                                    <span ng-switch-when="rating_var >= 5">
+                                    <span ng-switch-when="selected_bathroom.rating >= 5">
                                         <img src="./img/golden_toilet_v2.png" height="40px" width="30px" />
                                     </span>
                                 </span>
@@ -44,37 +44,37 @@
                         
                         <tr>
                             <td>Building</td>
-                            <td>{{building}}</td>
+                            <td>{{selected_bathroom.building}}</td>
                         </tr>
                         
                         <tr>
                             <td>Floor</td>
-                            <td>{{floor}}</td>
+                            <td>{{selected_bathroom.floor}}</td>
                         </tr>
                         
                         <tr>
                             <td>Organization</td>
-                            <td>{{organization}}</td>
+                            <td>{{selected_bathroom.organization}}</td>
                         </tr>
                         
                         <tr>
                             <td>Type</td>
-                            <td>{{bathroom_type}}</td>
+                            <td>{{selected_bathroom.bathroom_type}}</td>
                         </tr>
                         
                         <tr>
                             <td>Open?</td>
-                            <td>{{open}}</td>
+                            <td>{{selected_bathroom.open}}</td>
                         </tr>
                         
                         <tr>
                             <td>Accessible?</td>
-                            <td>{{accessibility}}</td>
+                            <td>{{selected_bathroom.accessibility}}</td>
                         </tr>
                         
                         <tr>
                             <td>Changing Stations?</td>
-                            <td>{{changing_station}}</td>
+                            <td>{{selected_bathroom.changing_station}}</td>
                         </tr>
                         
                         <tr>

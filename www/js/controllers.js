@@ -258,8 +258,79 @@
                             popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                         });
 
-                        var example_marker = L.marker([39.1339842, -84.5143028], {icon: toiletIcon}).on('click', onMarkerClick).addTo(vm.map);
+                        //var example_marker = L.marker([39.1339842, -84.5143028], {icon: toiletIcon}).on('click', onMarkerClick).addTo(vm.map);
                         // example_marker.bindPopup("This is a sample marker.").openPopup();
+                        
+                        // Search bathrooms in user area to display.
+                        
+                        $.get( "http://localhost:5000/search_bathrooms", {
+                                "latitude": $scope.user_latitude,
+                                "longitude": $scope.user_longitude,
+                                "radius": 20
+                        }, function(err, req, resp){
+                            
+                            var json_object_bathrooms = JSON.parse(resp.responseText);
+                            
+                            var obj_length = json_object_bathrooms.length;
+                            for (var i = 0; i < obj_length; i++) {
+                                
+                                console.log(json_object_bathrooms[i]);
+                                
+                                var example_marker = L.marker([json_object_bathrooms[i].latitude, json_object_bathrooms[i].longitude], {icon: toiletIcon}).on('click', onMarkerClick).addTo(vm.map);
+                            };
+                            
+                            function onMarkerClick(e) {
+                            
+                                $scope.latitude = e.latlng.lat;
+                                $scope.longitude = e.latlng.lng;
+
+                                SharedProperties.setBathroomFields({latitude: $scope.latitude, longitude: $scope.longitude});
+                                
+                                for (var i = 0; i < obj_length; i++) {
+                                    if (json_object_bathrooms[i].latitude == $scope.latitude && json_object_bathrooms[i].longitude == $scope.longitude) {
+
+                                        console.log(json_object_bathrooms[i]);
+                                        $scope.$apply(function(){
+                                            $scope.selected_bathroom = {
+                                                rating: parseInt(json_object_bathrooms[i].rating, 10),
+                                                building: json_object_bathrooms[i].building,
+                                                floor: parseInt(json_object_bathrooms[i].floor, 10),
+                                                organization: json_object_bathrooms[i].organization,
+                                                bathroom_type: json_object_bathrooms[i].bathroom_type,
+                                                open: json_object_bathrooms[i].open,
+                                                accessible: json_object_bathrooms[i].accessible,
+                                                changing_stations: json_object_bathrooms[i].changing_stations,
+                                                
+                                                startTimeSun: json_object_bathrooms[i].startTimeSun,
+                                                endTimeSun: json_object_bathrooms[i].startTimeSun,
+                                                
+                                                startTimeMon: json_object_bathrooms[i].startTimeMon,
+                                                endTimeMon: json_object_bathrooms[i].startTimeMon,
+                                                
+                                                startTimeTues: json_object_bathrooms[i].startTimeTues,
+                                                endTimeTues: json_object_bathrooms[i].startTimeTues,
+                                                
+                                                startTimeWed: json_object_bathrooms[i].startTimeWed,
+                                                endTimeWed: json_object_bathrooms[i].startTimeWed,
+                                                
+                                                startTimeThurs: json_object_bathrooms[i].startTimeThurs,
+                                                endTimeThurs: json_object_bathrooms[i].startTimeThurs,
+                                                
+                                                startTimeFri: json_object_bathrooms[i].startTimeFri,
+                                                endTimeFri: json_object_bathrooms[i].startTimeFri,
+                                                
+                                                startTimeSat: json_object_bathrooms[i].startTimeSat,
+                                                endTimeSat: json_object_bathrooms[i].startTimeSat
+                                            } 
+                                        });
+                                    }
+                                    
+                                };
+
+                                $("#slide-container").animate({ "margin-right": 0 }, "slow");
+                            };
+                            
+                        });
                         
                         function onMapClick(e) {
                             //var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
@@ -277,10 +348,6 @@
 
                             //vm.map.openPopup(popup);
                         }
-                        
-                        function onMarkerClick(e) {
-                            $("#slide-container").animate({ "margin-right": 0 }, "slow");
-                        };
                         
                     });
                 });
@@ -573,16 +640,22 @@
             $scope.email = $scope.user_fields.user_email;
             $scope.password = $scope.user_fields.user_password_hash;
             $scope.user_name = $scope.user_fields.user_name;
-            
-            delete_bathroom(function() {
-                // Add delete ftn here.
                 
-                $scope.results = SharedProperties.getBathroomFields();
-                $scope.latitude = $scope.results.latitude;
-                $scope.longitude = $scope.results.longitude;
+            $scope.results = SharedProperties.getBathroomFields();
+            $scope.latitude = $scope.results.latitude;
+            $scope.longitude = $scope.results.longitude;
 
-                $location.path("/home");
-            });
+            // Add delete ftn here.
+            console.log($scope.results);
+            
+            if ($scope.latitude != null && $scope.longitude != null) {
+                $.get( "http://localhost:5000/delete_bathroom", {
+                        "latitude": $scope.latitude,
+                        "longitude": $scope.longitude
+                }, function(err, req, resp){
+                    location.reload();
+                });
+            }
         };
     }]);
     
@@ -591,15 +664,7 @@
         $scope.init = function () {
         };
         
-        $scope.edit = function() {
-            $scope.user_fields = SharedProperties.getUserFields();
-            
-            $scope.email = $scope.user_fields.user_email;
-            $scope.password = $scope.user_fields.user_password_hash;
-            $scope.user_name = $scope.user_fields.user_name;
-            
-            edit_bathroom(function(
-                rating,
+        $scope.edit = function(rating,
                 building,
                 floor,
                 organization,
@@ -622,37 +687,70 @@
                 endTimeFri,
                 startTimeSat,
                 endTimeSat) {
-                
-                $scope.rating = rating;
-                $scope.building = building;
-                $scope.floor = floor;
-                $scope.organization = organization;
-                $scope.bathroom_type = bathroom_type;
-                $scope.open = open;
-                $scope.accessible = accessible;
-                $scope.changing_stations = changing_stations;
+            
+            $scope.user_fields = SharedProperties.getUserFields();
+            
+            $scope.email = $scope.user_fields.user_email;
+            $scope.password = $scope.user_fields.user_password_hash;
+            $scope.user_name = $scope.user_fields.user_name;
+            
+            $scope.rating = rating;
+            $scope.building = building;
+            $scope.floor = floor;
+            $scope.organization = organization;
+            $scope.bathroom_type = bathroom_type;
+            $scope.open = open;
+            $scope.accessible = accessible;
+            $scope.changing_stations = changing_stations;
 
-                $scope.startTimeSun = startTimeSun;
-                $scope.endTimeSun = endTimeSun;
-                $scope.startTimeMon = startTimeMon;
-                $scope.endTimeMon = endTimeMon;
-                $scope.startTimeTues = startTimeTues;
-                $scope.endTimeTues = endTimeTues;
-                $scope.startTimeWed = startTimeWed;
-                $scope.endTimeWed = endTimeWed;
-                $scope.startTimeThurs = startTimeThurs;
-                $scope.endTimeThurs = endTimeThurs;
-                $scope.startTimeFri = startTimeFri;
-                $scope.endTimeFri = endTimeFri;
-                $scope.startTimeSat = startTimeSat;
-                $scope.endTimeSat = endTimeSat;
-                
-                $scope.results = SharedProperties.getBathroomFields();
-                $scope.latitude = $scope.results.latitude;
-                $scope.longitude = $scope.results.longitude;
-                
-                // Add edit ftn here.
-                
+            $scope.startTimeSun = startTimeSun;
+            $scope.endTimeSun = endTimeSun;
+            $scope.startTimeMon = startTimeMon;
+            $scope.endTimeMon = endTimeMon;
+            $scope.startTimeTues = startTimeTues;
+            $scope.endTimeTues = endTimeTues;
+            $scope.startTimeWed = startTimeWed;
+            $scope.endTimeWed = endTimeWed;
+            $scope.startTimeThurs = startTimeThurs;
+            $scope.endTimeThurs = endTimeThurs;
+            $scope.startTimeFri = startTimeFri;
+            $scope.endTimeFri = endTimeFri;
+            $scope.startTimeSat = startTimeSat;
+            $scope.endTimeSat = endTimeSat;
+
+            $scope.results = SharedProperties.getBathroomFields();
+            $scope.latitude = $scope.results.latitude;
+            $scope.longitude = $scope.results.longitude;
+
+            // Add edit ftn here.
+            console.log($scope.results);
+            
+            $.get( "http://localhost:5000/edit_bathroom", {
+                    "latitude": $scope.latitude,
+                    "longitude": $scope.longitude,
+                    "rating": $scope.rating,
+                    "building": $scope.building,
+                    "floor": $scope.floor,
+                    "organization": $scope.organization,
+                    "bathroom_type": $scope.bathroom_type,
+                    "open": $scope.open_status,
+                    "accessible": $scope.accessible,
+                    "changing_stations": $scope.changing_stations,
+                    "startTimeSun": $scope.startTimeSun,
+                    "endTimeSun": $scope.endTimeSun,
+                    "startTimeMon": $scope.startTimeMon,
+                    "endTimeMon": $scope.endTimeMon,
+                    "startTimeTues": $scope.startTimeTues,
+                    "endTimeTues": $scope.endTimeTues,
+                    "startTimeWed": $scope.startTimeWed,
+                    "endTimeWed": $scope.endTimeWed,
+                    "startTimeThurs": $scope.startTimeThurs,
+                    "endTimeThurs": $scope.endTimeThurs,
+                    "startTimeFri": $scope.startTimeFri,
+                    "endTimeFri": $scope.endTimeFri,
+                    "startTimeSat": $scope.startTimeSat,
+                    "endTimeSat": $scope.endTimeSat
+            }, function(err, req, resp){
                 $location.path("/home");
             });
         };
@@ -717,8 +815,39 @@
                 $scope.longitude = $scope.results.longitude;
                 
                 // Add create ftn here.
+                
+                if ($scope.latitude != null && $scope.longitude != null) {
+                    $.get( "http://localhost:5000/add_bathroom", {
+                        "latitude": $scope.latitude,
+                        "longitude": $scope.longitude,
+                        "rating": $scope.rating,
+                        "building": $scope.building,
+                        "floor": $scope.floor,
+                        "organization": $scope.organization,
+                        "bathroom_type": $scope.bathroom_type,
+                        "open": $scope.open_status,
+                        "accessible": $scope.accessible,
+                        "changing_stations": $scope.changing_stations,
+                        "startTimeSun": $scope.startTimeSun,
+                        "endTimeSun": $scope.endTimeSun,
+                        "startTimeMon": $scope.startTimeMon,
+                        "endTimeMon": $scope.endTimeMon,
+                        "startTimeTues": $scope.startTimeTues,
+                        "endTimeTues": $scope.endTimeTues,
+                        "startTimeWed": $scope.startTimeWed,
+                        "endTimeWed": $scope.endTimeWed,
+                        "startTimeThurs": $scope.startTimeThurs,
+                        "endTimeThurs": $scope.endTimeThurs,
+                        "startTimeFri": $scope.startTimeFri,
+                        "endTimeFri": $scope.endTimeFri,
+                        "startTimeSat": $scope.startTimeSat,
+                        "endTimeSat": $scope.endTimeSat
+                    }, function(err, req, resp){
+                        location.reload();
+                    });
+                }
 
-                $location.path("/home");
+                
         }
         
     }]);
