@@ -43,13 +43,16 @@
                     
                     <div style="margin-left:20px">
                         <!-- Open? -->
-                        <label class="checkbox"><input type="checkbox" value="open" ng-model="open">Open</label>
+                        <label class="checkbox"><input type="checkbox" value="Yes" name="open_status" ng-model="open_status">Open</label>
+                        <input type="hidden" name="open_status" ng-model="open_status" value="No" />
 
                         <!-- Accessible? -->
-                        <label class="checkbox"><input type="checkbox" value="accessible" ng-model="accessible">Accessible</label>
+                        <label class="checkbox"><input type="checkbox" value="Yes" name="accessible" ng-model="accessible">Accessible</label>
+                        <input type="hidden" name="accessible" ng-model="accessible" value="No" />
 
                         <!-- Changing Stations? -->
-                        <label class="checkbox"><input type="checkbox" value="changing_stations" ng-model="changing_stations">Changing Stations</label>
+                        <label class="checkbox"><input type="checkbox" value="Yes" name="changing_stations" ng-model="changing_stations">Changing Stations</label>
+                        <input type="hidden" name="changing_stations" ng-model="changing_stations" value="No" />
                     </div>
                         
                     <br/>
@@ -107,7 +110,7 @@
                         floor,
                         organization,
                         bathroom_type,
-                        open,
+                        open_status,
                         accessible,
                         changing_stations,
 

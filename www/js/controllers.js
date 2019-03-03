@@ -311,7 +311,7 @@
                                                 floor: parseInt(json_object_bathrooms[i].floor, 10),
                                                 organization: json_object_bathrooms[i].organization,
                                                 bathroom_type: json_object_bathrooms[i].bathroom_type,
-                                                open: json_object_bathrooms[i].open,
+                                                open_status: json_object_bathrooms[i].open,
                                                 accessible: json_object_bathrooms[i].accessible,
                                                 changing_stations: json_object_bathrooms[i].changing_stations,
                                                 
@@ -694,7 +694,7 @@
                 floor,
                 organization,
                 bathroom_type,
-                open,
+                open_status,
                 accessible,
                 changing_stations,
 
@@ -724,9 +724,12 @@
             $scope.new_floor = floor;
             $scope.new_organization = organization;
             $scope.new_bathroom_type = bathroom_type;
-            $scope.new_open = open;
+            $scope.new_open = open_status;
             $scope.new_accessible = accessible;
             $scope.new_changing_stations = changing_stations;
+            
+            console.log("new_open_test");
+            console.log($scope.new_open);
 
             $scope.new_startTimeSun = startTimeSun;
             $scope.new_endTimeSun = endTimeSun;
@@ -757,7 +760,7 @@
                 "floor": $scope.new_floor,
                 "organization": $scope.new_organization,
                 "bathroom_type": $scope.new_bathroom_type,
-                "open": $scope.new_open_status,
+                "open": $scope.new_open,
                 "accessible": $scope.new_accessible,
                 "changing_stations": $scope.new_changing_stations,
                 "startTimeSun": $scope.new_startTimeSun,
@@ -776,6 +779,9 @@
                 "endTimeSat": $scope.new_endTimeSat
             }
             
+            console.log("EDITS");
+            console.log(new_json);
+            
             $.get( "http://localhost:5000/edit_bathroom", {
                     "latitude": $scope.latitude,
                     "longitude": $scope.longitude,
@@ -784,7 +790,7 @@
                     "floor": $scope.new_floor,
                     "organization": $scope.new_organization,
                     "bathroom_type": $scope.new_bathroom_type,
-                    "open": $scope.new_open_status,
+                    "open": $scope.new_open,
                     "accessible": $scope.new_accessible,
                     "changing_stations": $scope.new_changing_stations,
                     "startTimeSun": $scope.new_startTimeSun,
@@ -803,7 +809,7 @@
                     "endTimeSat": $scope.new_endTimeSat
             }, function(err, req, resp){
                 $('#edit-bathroom-close-button').click();
-                location.reload();
+                //location.reload();
             });
         };
     }]);
@@ -819,7 +825,7 @@
                 floor,
                 organization,
                 bathroom_type,
-                open,
+                open_status,
                 accessible,
                 changing_stations,
 
@@ -837,16 +843,44 @@
                 endTimeFri,
                 startTimeSat,
                 endTimeSat) {
-                
-                console.log(organization);
 
                 $scope.rating = rating;
                 $scope.building = building;
                 $scope.floor = floor;
                 $scope.organization = organization;
                 $scope.bathroom_type = bathroom_type;
-                $scope.open = open;
+            
+                if (open_status == undefined) {
+                    open_status = "No";
+                } else if (open_status == true) {
+                    open_status = "Yes";
+                } else if (open_status == false) {
+                    open_status = "No";
+                } else {
+                    open_status = "No";
+                }
+                $scope.open_status = open_status;
+            
+                if (accessible == undefined) {
+                    accessible = "No";
+                } else if (accessible == true) {
+                    accessible = "Yes";
+                } else if (accessible == false) {
+                    accessible = "No";
+                } else {
+                    accessible = "No";
+                }
                 $scope.accessible = accessible;
+            
+                if (changing_stations == undefined) {
+                    changing_stations = "No";
+                } else if (changing_stations == true) {
+                    changing_stations = "Yes";
+                } else if (changing_stations == false) {
+                    changing_stations = "No";
+                } else {
+                     changing_stations = "No";
+                }
                 $scope.changing_stations = changing_stations;
 
                 $scope.startTimeSun = startTimeSun;
@@ -869,6 +903,10 @@
                 $scope.longitude = $scope.results.longitude;
                 
                 // Add create ftn here.
+            
+                console.log('begin');
+                console.log(open_status);
+                console.log("here");
                 
                 if ($scope.latitude != null && $scope.longitude != null) {
                     $.get( "http://localhost:5000/add_bathroom", {
@@ -897,7 +935,7 @@
                         "startTimeSat": $scope.startTimeSat,
                         "endTimeSat": $scope.endTimeSat
                     }, function(err, req, resp){
-                        location.reload();
+                        //location.reload();
                     });
                 }
 

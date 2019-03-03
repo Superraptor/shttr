@@ -43,13 +43,16 @@
                     
                     <div style="margin-left:20px">
                         <!-- Open? -->
-                        <label class="checkbox"><input type="checkbox" value="open" ng-model="selected_bathroom.open"  name="open">Open</label>
+                        <label class="checkbox"><input type="checkbox" value="Yes" ng-model="selected_bathroom.open_status"  name="open_status">Open</label>
+                        <input type="hidden" name="open_status" ng-model="selected_bathroom.open_status" value="No" />
 
                         <!-- Accessible? -->
-                        <label class="checkbox"><input type="checkbox" value="accessible" ng-model="selected_bathroom.accessible"  name="accessible">Accessible</label>
+                        <label class="checkbox"><input type="checkbox" value="Yes" ng-model="selected_bathroom.accessible" name="accessible">Accessible</label>
+                        <input type="hidden" name="accessible" ng-model="selected_bathroom.accessible" value="No" />
 
                         <!-- Changing Stations? -->
-                        <label class="checkbox"><input type="checkbox" value="changing_stations" ng-model="selected_bathroom.changing_stations" name="changing_stations">Changing Stations</label>
+                        <label class="checkbox"><input type="checkbox" value="Yes" ng-model="selected_bathroom.changing_stations" name="changing_stations">Changing Stations</label>
+                        <input type="hidden" name="changing_stations" ng-model="selected_bathroom.changing_stations" value="No" />
                     </div>
                         
                     <br/>
@@ -107,7 +110,7 @@
                         selected_bathroom.floor,
                         selected_bathroom.organization,
                         selected_bathroom.bathroom_type,
-                        selected_bathroom.open,
+                        selected_bathroom.open_status,
                         selected_bathroom.accessible,
                         selected_bathroom.changing_stations,
 
