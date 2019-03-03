@@ -311,7 +311,7 @@
                                                 floor: parseInt(json_object_bathrooms[i].floor, 10),
                                                 organization: json_object_bathrooms[i].organization,
                                                 bathroom_type: json_object_bathrooms[i].bathroom_type,
-                                                open_status: json_object_bathrooms[i].open,
+                                                open_status: json_object_bathrooms[i].open_status,
                                                 accessible: json_object_bathrooms[i].accessible,
                                                 changing_stations: json_object_bathrooms[i].changing_stations,
                                                 
@@ -760,7 +760,7 @@
                 "floor": $scope.new_floor,
                 "organization": $scope.new_organization,
                 "bathroom_type": $scope.new_bathroom_type,
-                "open": $scope.new_open,
+                "open_status": $scope.new_open,
                 "accessible": $scope.new_accessible,
                 "changing_stations": $scope.new_changing_stations,
                 "startTimeSun": $scope.new_startTimeSun,
@@ -790,7 +790,7 @@
                     "floor": $scope.new_floor,
                     "organization": $scope.new_organization,
                     "bathroom_type": $scope.new_bathroom_type,
-                    "open": $scope.new_open,
+                    "open_status": $scope.new_open,
                     "accessible": $scope.new_accessible,
                     "changing_stations": $scope.new_changing_stations,
                     "startTimeSun": $scope.new_startTimeSun,
@@ -917,7 +917,7 @@
                         "floor": $scope.floor,
                         "organization": $scope.organization,
                         "bathroom_type": $scope.bathroom_type,
-                        "open": $scope.open_status,
+                        "open_status": $scope.open_status,
                         "accessible": $scope.accessible,
                         "changing_stations": $scope.changing_stations,
                         "startTimeSun": $scope.startTimeSun,
@@ -935,7 +935,7 @@
                         "startTimeSat": $scope.startTimeSat,
                         "endTimeSat": $scope.endTimeSat
                     }, function(err, req, resp){
-                        //location.reload();
+                        location.reload();
                     });
                 }
 
